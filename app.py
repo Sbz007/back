@@ -298,3 +298,57 @@ async def train_model(payload: dict = Body(...)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
+# ----------------------------------------------------
+# 📄 Obtener datos de una tabla específica de Supabase
+# ----------------------------------------------------
+@app.get("/get_table/{table_name}")
+async def get_table(table_name: str):
+    """
+    Devuelve los registros de una tabla específica en Supabase.
+    Ejemplo: /get_table/alumnos_6toA_matematica_luis
+    """
+    try:
+        # Ejecutar consulta
+        response = supabase.table(table_name).select("*").execute()
+        if response.data:
+            return {"data": response.data}
+        else:
+            return {"message": f"La tabla '{table_name}' está vacía o no existe."}
+    except Exception as e:
+        print(f"❌ Error al obtener la tabla '{table_name}':", e)
+        return {"error": f"No se pudo obtener la tabla '{table_name}'", "details": str(e)}
+# ===============================
+# 📘 Obtener registros de una tabla
+# ===============================
+@app.get("/get_table/{table_name}")
+async def get_table(table_name: str):
+    """
+    Devuelve los registros de una tabla de Supabase.
+    Ejemplo: /get_table/cursos_6toA_matematica_luis
+    """
+    try:
+        # Consultar datos en Supabase
+        response = supabase.table(table_name).select("*").execute()
+        
+        if not response.data:
+            return {"message": f"No se encontraron registros en '{table_name}'."}
+        
+        print(f"✅ Datos obtenidos de '{table_name}' ({len(response.data)} filas)")
+        return {"data": response.data}
+    
+    except Exception as e:
+        print(f"❌ Error al obtener datos de '{table_name}':", e)
+        return {
+            "error": f"No se pudo obtener datos de '{table_name}'",
+            "details": str(e)
+        }
+
+
+# ===============================
+# 🚀 Ejecutar servidor local o Render
+# ===============================
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    port = int(os.getenv("PORT", 10000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)

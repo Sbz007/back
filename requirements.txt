@@ -6,4 +6,5 @@ python-dotenv
 supabase
 torch
 scikit-learn
+python-multipart
 
