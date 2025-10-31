@@ -1,6 +1,9 @@
 fastapi
 uvicorn
+pandas
+numpy
 python-dotenv
 supabase
-pandas
-python-multipart
+torch
+scikit-learn
+
