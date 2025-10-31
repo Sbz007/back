@@ -38,7 +38,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:8080",   # desarrollo local
-        "https://tu-frontend.vercel.app",  # tu dominio real de producción
+        "https://escuela-seven.vercel.app",  # tu dominio real de producción
         "https://backed-49i1.onrender.com"
          ],
     allow_credentials=True,
