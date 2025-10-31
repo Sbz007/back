@@ -33,9 +33,14 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 # ====================================================
 app = FastAPI(title="CSV → Supabase Multi-Table API")
 
+# Permitir el acceso desde tu frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:8080",   # desarrollo local
+        "https://tu-frontend.vercel.app",  # tu dominio real de producción
+        "https://backed-49i1.onrender.com"
+         ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
